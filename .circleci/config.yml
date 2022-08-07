@@ -215,6 +215,7 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
 
+# 
 #   run-migrations:
 #     docker:
 #       # Docker image here that supports NodeJS
