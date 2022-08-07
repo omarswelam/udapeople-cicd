@@ -19,9 +19,21 @@ commands:
           name: install ansible
           command: |
             sudo apt update
-            sudo apt install software-properties-common
+            sudo apt install software-properties-common -y
             sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible
+            sudo apt install ansible -y
+
+  install_nodejs:
+    description: install nodejs 13.
+    steps:
+      - run:
+          name: install nodejs
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            sudo npm install --global n
+            sudo n 13.8.0
+
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -43,7 +55,8 @@ commands:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
       Workflow_ID:
-        type: string     
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}     
     steps:
       - run:
           name: Revert migrations
