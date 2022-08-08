@@ -409,14 +409,6 @@ jobs:
             export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
             echo Old Workflow ID: $OldWorkflowID
 
-            echo $OldWorkflowID
-            echo "hoho"
-            echo "${OldWorkflowID}"
-            echo "hoho"
-            echo "${STACKS[@]}"
-            echo "hoho"
-            echo $STACKS
-
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
